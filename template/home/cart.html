@@ -1,0 +1,225 @@
+{% extends './base.html' %}
+{% load static %}
+{% block botonheader %}
+	<a id="lista" href="#lista" class="btn-get-started scrollto">Ver lista de Carrito</a>
+{% endblock %}
+{% block content %}
+<style>
+      .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+      }
+
+      .button1 {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      }
+
+      .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+      }
+</style>
+<br><br>
+<section id="lista">
+	{% if cart %}
+		{% for i in cart %}
+		  <div class="container py-3" id="bloque{{i.codigo}}" class="alert" role="alert">
+		    <div class="card">
+		      <div class="row ">
+		        <div class="col-md-4">
+		            <img src="{{i.img}}" class="w-100">
+		          </div>
+		          <div class="col-md-8 px-3">
+		            <div class="card-block px-3">
+		              <h4 class="card-title">{{i.articulo}}</h4>
+		              <p class="card-text">{{i.descripcion}} </p>
+		              <p class="card-text">${{i.total}}&nbsp;&nbsp;&nbsp;COP&nbsp;&nbsp;
+		              	<button type="button" id="{{i.codigo}}" class="close" data-dismiss="alert" aria-label="Close">
+		            		<span aria-hidden="true"><i class="fa fa-close"></i></span>
+		          		</button>
+		          	  </p>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  <hr style="color:white;">
+		{% endfor %}
+
+<section class="container">
+	<div class="row">
+		<div class="col-8">
+			<p>$40.900COP equivale a $10.96USD
+Cobramos el importe del pedido en US$, puede que haya una mínima variación debido al tipo de cambio usado por tu banco. Los precios de los productos de la web están sujetos a cambio. En el carrito puedes dejar temporalmente tu compra, en él aparecerá el precio más reciente de cada producto. Los códigos de descuento no son acumulables, ni tampoco aplicables junto a otras promociones especiales salvo que se indique lo contrario.</p>
+		</div>
+		<div class="col-4 table-responsive">
+			<table class="ml-auto">
+				<tbody>
+					<td>
+						<h1>TOTAL: ${{total}}</h1>
+					</td>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<ul class="list-inline cards-list" style="margin-top: 20px;margin-right: 10px;">
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-visa-8a18fbf2359d9aa9ae996beea6fb859de3be9d8d5256e4fb7c0f926f22f51c45.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-visa@2x-d683b41bd4bdde323cb893fed75b982577c2352b3d22dca76d141ef9ada44113.png 2x" alt="Visa" title="Visa" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-visa-8a18fbf2359d9aa9ae996beea6fb859de3be9d8d5256e4fb7c0f926f22f51c45.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-visa@2x-d683b41bd4bdde323cb893fed75b982577c2352b3d22dca76d141ef9ada44113.png 2x">
+				</div>
+			</li>
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-mastercard-ea3facb35831c19f7d184954248b0e458ed8f1efb6495f75bcc797a014252d96.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-mastercard@2x-df0939e975e0b2549a921a8d4754c7c960a55dcdfee81a2a755d0dc6f1610a78.png 2x" alt="MasterCard" title="MasterCard" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-mastercard-ea3facb35831c19f7d184954248b0e458ed8f1efb6495f75bcc797a014252d96.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-mastercard@2x-df0939e975e0b2549a921a8d4754c7c960a55dcdfee81a2a755d0dc6f1610a78.png 2x">
+				</div>
+			</li>
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-amex-e085770cc9a90b2d0137362d2368866f03d44eb3cb5d5727f231ddc01981a37b.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-amex@2x-dbe04ea03eba35bef4ab4377ad5a3e96d62567caf3e13615bfa8f21e55227958.png 2x" alt="American Express" title="American Express" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-amex-e085770cc9a90b2d0137362d2368866f03d44eb3cb5d5727f231ddc01981a37b.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-amex@2x-dbe04ea03eba35bef4ab4377ad5a3e96d62567caf3e13615bfa8f21e55227958.png 2x">
+				</div>
+			</li>
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-discover-ab22881b089834c3f03d4c4adde12a1e4829082575b2f07f38d19bee36000b36.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-discover@2x-39b7ebaca3f7a78aca6bc3028b2eb7e26e046cd517dc94b8aa9f2d06a81b6243.png 2x" alt="Discover" title="Discover" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-discover-ab22881b089834c3f03d4c4adde12a1e4829082575b2f07f38d19bee36000b36.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-discover@2x-39b7ebaca3f7a78aca6bc3028b2eb7e26e046cd517dc94b8aa9f2d06a81b6243.png 2x">
+				</div>
+			</li>
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-jcb-568d3abc2d789efab23cf844d293a23c388d9a8a877940cc2d5950fa25219181.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-jcb@2x-ade6160b5e6ea6bb2b944d29ab2d8ea9f62bc7bc16c966598a33b5fffee0335e.png 2x" alt="JCB" title="JCB" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-jcb-568d3abc2d789efab23cf844d293a23c388d9a8a877940cc2d5950fa25219181.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-jcb@2x-ade6160b5e6ea6bb2b944d29ab2d8ea9f62bc7bc16c966598a33b5fffee0335e.png 2x">
+				</div>
+			</li>
+			<li class="list-inline-item">
+				<div class="card-wrapper">
+					<img data-srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-paypal-ade0ee5fa42753277828096cb7c287be63b3527903f2efbedeafb63ef55556c4.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-paypal@2x-48146b210b75027ddc93d59cd0b229348c1be5e62c6b8411119c9ade8cc02d78.png 2x" alt="PayPal" title="PayPal" class=" lazyloaded" src="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-lazyload-6b2937151d7662d2a0b37af79c23a1dfaa812544aa1bd701b42077157c08dd93.svg" srcset="https://cdn.domestika.org/raw/upload/assets/payment-methods/card-paypal-ade0ee5fa42753277828096cb7c287be63b3527903f2efbedeafb63ef55556c4.png, https://cdn.domestika.org/raw/upload/assets/payment-methods/card-paypal@2x-48146b210b75027ddc93d59cd0b229348c1be5e62c6b8411119c9ade8cc02d78.png 2x">
+				</div>
+			</li>
+		</ul>
+		<button class="button button1"><a href="javascript:void();" id="Pago" style="text-decoration: none;color: white;">Tramitar Pedido</a></button>
+	</div>
+</section>
+
+
+
+	{% else %}
+		<div class="container py-3">
+			<div>
+				<h1><i class="fa fa-info-circle icon color-quandog"></i>&nbsp;&nbsp;Tu carrito está vacío</h1>
+				<p>Solo tienes que llenarlo y empezar a aprender.&nbsp;&nbsp;<a href="http://localhost:8000/#services" style="color:#f02d00;text-decoration: none;font-weight: bold;">Continuar comprando →</a></p>
+			</div>
+		</div>
+	{% endif %}
+</section>
+
+<hr style="color:white;">
+<section id="services" class="services">
+      <div class="container">
+        <div class="section-title">
+          <span>Cursos que te pueden interesar</span>
+          <h2>Cursos que te pueden interesar</h2>
+        </div>
+          <div class="row">
+            {% for i in products %}
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                <div class="icon-box">
+                  <img src="{{i.imagen.url}}" class="img-fluid">
+                  <h4><a href="{% url 'cursos' 0 i.pk %}">{{i.titulo}}</a></h4>
+                  <p>{{i.descripcion|truncatechars:60}}</p>
+                  <button class="button button1" style="position: fixed;bottom: 0px;right: 100px; background: #00b2bd;"><a type="button" id="{{i.pk}}" href="javascript:void();" style="text-decoration: none;color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;${{i.precio}}&nbsp;&nbsp;COP</a></button>
+                </div>
+              </div>
+            {% endfor %}
+          </div><br><br>
+          <div class="row justify-content-center">
+          	<button class="button button1"><a href="{% url 'cursos' 0 1 %}" style="text-decoration: none;color: white;">Ver más cursos</a></button>
+          </div>
+      </div>
+    </section><!-- End Services Section -->
+
+{% endblock %}
+{% block script %}
+
+	<script>
+
+		$(document).ready(function(){
+
+			$("#Pago").click(function(e){
+				if('{{request.session.login}}'){
+					var precio = parseInt('{{total}}') * 100;
+					var checkout = new WidgetCheckout({
+					  currency: 'COP',
+					  amountInCents: precio,
+					  reference: 'AD{{transaction.numero}}',
+					  publicKey: 'pub_test_Zs0LVNeaLOG440kKSAp0YRXBO8M0VBP0',
+					  redirectUrl: 'https://transaction-redirect.wompi.co/check', // Opcional
+					  taxInCents: { // Opcional
+					    vat: 1900,
+					    consumption: 800
+					  }
+					});
+					checkout.open(function ( result ) {
+					  var transaction = result.transaction
+					  console.log('Transaction ID: ', transaction.id)
+					  console.log('Transaction object: ', transaction)
+					  if(transaction.status == 'APPROVED'){
+					  	$.ajax({
+					  		url:'/detailscart/',
+					  		data:{'data':1},
+					  		success:function(data){
+					  			if(data == 'True'){
+					  				$("#valorCarrito").text('{{request.session.carrito}}');
+					  				window.location.href = "{% url 'cuenta' %}";
+					  			}
+					  		}
+					  	})
+					  }
+					});
+				}
+				else{
+					window.location.href = "{% url 'loginHome' %}";
+				}
+
+
+			});
+
+			$("#lista").click();
+
+			$(document).on('click','button[type="button"]',function(){
+				var id = this.id;
+				$.ajax({
+					url:'/cart_remove/',
+					data:{'id':this.id},
+					success:function(data){
+						$("#valorCarrito").text(data);
+						$("#bloque"+id).remove();
+						location.reload(true);
+					}
+				});
+			});
+
+			$(document).on('click','a[type="button"]',function(){
+		  		$.ajax({
+		  			type:'GET',
+		  			url:'/addcart/',
+		  			data:{'id':this.id},
+		  			success:function(data){
+		  				$("#valorCarrito").text(data);
+		  				location.reload(true);
+		  			}
+
+		  		});
+		  	});
+		});
+		
+	</script>
+
+{% endblock %}

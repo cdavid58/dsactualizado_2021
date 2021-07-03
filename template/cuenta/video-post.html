@@ -1,0 +1,91 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+<section class="container">
+    <div class="row justify-content-center">
+        <h2>Curso</h2>
+    </div>
+</section>
+<br>
+<section class="hero--area section-padding-80">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-12 col-md-7 col-lg-8">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="post-0" role="tabpanel" aria-labelledby="post-0-tab">
+                        <div class="single-video-area">
+                            <iframe src="{{sub.videoIntro}}" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    {% for i in cursos %}
+                        <div class="tab-pane fade show" id="post-{{i.pk}}" role="tabpanel" aria-labelledby="post-{{i.pk}}-tab">
+                            <div class="single-video-area">
+                                <iframe src="https://drsantiagoduque.com/media/Podcast/video.mp4" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-5 col-lg-4">
+                <ul class="nav vizew-nav-tab" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="post-0-tab" data-toggle="pill" href="#post-0" role="tab" aria-controls="post-0" aria-selected="true">
+                            <!-- Single Blog Post -->
+                            <div class="single-blog-post style-2 d-flex align-items-center">
+                                <div class="post-thumbnail">
+                                    <img src="{{sub.imagen.url}}" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <h6 class="post-title"><strong>Video</strong> Intro<br>{{sub.titulo}}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {% for i in cursos %}
+                        <li class="nav-item">
+                            <a class="nav-link" id="post-{{i.pk}}-tab" data-toggle="pill" href="#post-{{i.pk}}" role="tab" aria-controls="post-{{i.pk}}" aria-selected="true">
+                                <!-- Single Blog Post -->
+                                <div class="single-blog-post style-2 d-flex align-items-center">
+                                    <div class="post-thumbnail">
+                                        <img src="{{i.imagen.url}}" alt="">
+                                    </div>
+                                    <div class="post-content">
+                                        <h6 class="post-title">{{i.titulo}}</h6>
+                                        <div class="post-meta d-flex justify-content-between">
+                                            <span><i class="fa fa-comments-o" aria-hidden="true"></i> 25</span>
+                                            <span><i class="fa fa-eye" aria-hidden="true"></i> 11</span>
+                                            <span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 19</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+
+                    
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+<!-- {% block script %}
+
+    <script>
+        // var obj = JSON.parse('{{data}}');
+        let data = '{{data}}';
+        let obj = data.replace(/&quot;/g,'"');
+        let objeto = JSON.parse(obj);
+        for (var i = objeto.length - 1; i >= 0; i--) {
+            console.log(objeto);//[i]['Depresion'][0]['video']);
+        }
+
+    </script>
+
+{% endblock %} -->

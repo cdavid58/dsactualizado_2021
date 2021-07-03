@@ -1,0 +1,310 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+      .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+      }
+
+      .button1 {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      }
+
+      .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+      }
+</style>
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
+            <img src="{% static 'home/assets/img/santiago.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
+            <h3>¿Quien es el Dr. Santiago Duque?.</h3>
+            <p class="font-italic">
+              {{info.texto_1}}
+            </p>
+            <div class="row">
+              <div class="col-6">
+                <ul>
+                  <li><i class="icofont-check-circled"></i> V Curso-Taller de Formación de Líderes Colegio de San Ignacio de Loyola Medellín, Diciembre 5 al 13 de 1994.</li>
+                  <li><i class="icofont-check-circled"></i> Diplomado en Actualización de Urgencias Medicas Universidad C.E.S Medellín, 2004.</li>
+                  <li><i class="icofont-check-circled"></i> Certificado Nacional en Reanimación Cardio Pulmonar Básica y Avanzada. Universidad C.E.S Medellín, Julio 2009.</li>
+                  <li><i class="icofont-check-circled"></i> XV y XVI Curso de actualización en Conocimientos Médicos. Universidad Pontificia Bolivariana. Medellín, Febrero de 2008 – Febrero 2009</li>
+                </ul>
+              </div>
+              <div class="col-6">
+                <ul>
+                  <li><i class="icofont-check-circled"></i> XII Curso de Actualización en Medicina Interna. Universidad de Antioquia. Medellín, Marzo de 2008.</li>
+                  <li><i class="icofont-check-circled"></i> XLVIII, XLIX, L Congreso Colombiano de Psiquiatría. 2009, 2010, 2011. Colombia.</li>
+                  <li><i class="icofont-check-circled"></i> Médico especialista en Psiquiatría, Comunidad Terapéutica Centro Unidos, Medellín – Colombia. Septiembre 2012 – A la fecha.</li>
+                  <li><i class="icofont-check-circled"></i> Médico especialista en Psiquiatría – Servicio de Psiquiatría de enlace – Clínica Las Américas Medellín – Colombia. Febrero 2013 a la fecha.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container">
+        <h1>Categorias</h1>
+        <div class="row">
+          {% for i in categoria %}
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="150">
+              <div class="box">
+                <span>{{i.nombre}}</span>
+                <img src="{{i.imagen.url}}" class="img-fluid">
+                <!-- <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p> -->
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <span>Aprende participando</span>
+          <h2>Aprende participando</h2>
+          <p>Accede a los mejores Cursos online para creativos. Interactúa con los mejores profesionales y descubre todos los secretos del sector.</p>
+        </div>
+        
+          <div class="row">
+            {% for i in products %}
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                <div class="icon-box">
+                  <img src="{{i.imagen.url}}" class="img-fluid">
+                  <h4><a href="{% url 'cursos' 0 i.pk %}">{{i.titulo}}</a></h4>
+                  <p>{{i.descripcion|truncatechars:60}}</p>
+                  <button class="button button1" style="position: fixed;bottom: 0px;right: 100px; background: #32e0c4;"><a type="button" id="{{i.pk}}" href="javascript:void();" style="text-decoration: none;color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;${{i.precio}}&nbsp;&nbsp;COP</a></button>
+                </div>
+              </div>
+            {% endfor %}
+          </div><br><br>
+          <div class="row justify-content-center">
+          	<button class="button button1" style="background: #32e0c4;"><a href="{% url 'cursos' 0 1 %}" style="text-decoration: none;color: white;">Ver más cursos</a></button>
+          </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="text-center">
+          <h3>Suscribete</h3>
+          <p>Para recibir las ultimas noticias de los cursos</p>
+          <form method="post" id="formmulario">{% csrf_token %}
+            <div class="row justify-content-center">
+              <div class="form-group col-12 col-md-5 col-lg-4">
+
+                <label style="color: white;">Correo Electrónico</label>
+                <input type="email"  name="email" placeholder="ejemplo@ejemplo.com" class="form-control" id="email">
+
+              </div><br>
+              <div class="form-group col-12 col-md-5 col-lg-4">
+
+                <label style="color: white;">Número de teléfono<small style="font-weight: bold;">&nbsp;&nbsp;(opcional)</small></label>
+                <input type="tel" id="telefono" maxlength="12" minlength="7" placeholder="Ejemplo: 555-555-5555" name="" class="form-control">
+
+              </div>
+            </div>
+          </form>
+          <a type="submit" id="enlaceFormulario" class="cta-btn" style="background: #32e0c4;" href="javascript:void(0);">Suscribirse</a>
+        </div>
+
+      </div>
+    </section><!-- End Cta Section -->
+
+    {% include './autoplay.html' %}
+    
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <span>Contacto</span>
+          <h2>Contacto</h2>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-6">
+            <div class="info-box mb-4">
+              <i class="bx bx-map" style="color:black;border-color: #32e0c4;"></i>
+              <h3>Ubicación</h3>
+              <p>Torre Médica Parque Comercial El Tesoro. Consultorio 2029. Cra. 25A #1 SUR - 45.,Coloombia, Medellín</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-envelope" style="color:black;border-color: #32e0c4;"></i>
+              <h3>Email Us</h3>
+              <p>secretariasantiagoduque@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <i class="bx bx-phone-call" style="color:black;border-color: #32e0c4;"></i>
+              <h3>Teléfono</h3>
+              <p>+57(4)418-4478<br>+57 3023497154</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" data-aos="fade-up">
+
+          <div class="col-lg-6 ">
+            <div id="wrapper-9cd199b9cc5410cd3b1ad21cab2e54d3">
+              <div id="map-9cd199b9cc5410cd3b1ad21cab2e54d3"></div>
+              <script>(function () {
+                  var setting = {"height":395,"width":803,"zoom":15,"queryString":"Torre Médica El Tesoro, Medellín, Antioquia, Colombia","place_id":"ChIJc6UjYJqCRo4R40FEg-YTiNY","satellite":false,"centerCoord":[6.196163251724099,-75.56053075],"cid":"0xd68813e6834441e3","lang":"es","cityUrl":"/colombia/medellin","cityAnchorText":"Mapa de Medellín, Antioquia, Colombia","id":"map-9cd199b9cc5410cd3b1ad21cab2e54d3","embed_id":"526707"};
+                  var d = document;
+                  var s = d.createElement('script');
+                  s.src = 'https://1map.com/js/script-for-user.js?embed_id=526707';
+                  s.async = true;
+                  s.onload = function (e) {
+                    window.OneMap.initMap(setting)
+                  };
+                  var to = d.getElementsByTagName('script')[0];
+                  to.parentNode.insertBefore(s, to);
+                })();
+              </script>
+              <a href="https://1map.com/es/map-embed">1 Map</a>
+            </div>
+            <!-- <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe> -->
+          </div>
+
+          <div class="col-lg-6">
+            <form method="post" action="/" role="form" class="php-email-form">{% csrf_token %}
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Tú Nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="tel" class="form-control" name="email" id="email" placeholder="Tú teléfono" data-rule="minlen:7" maxlength="10" data-msg="Ingrese un telefono valido" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" data-rule="minlen:6" data-msg="Por favor ingrese un minimo de 6 caracteres" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Por favor escriba un mensaje de 10 caracteres como minimo" minlength="10" placeholder="Mensaje"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Enviando</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Tu mensaje ha sido enviado. ¡Gracias!</div>
+              </div>
+              <div class="text-center"><button type="submit" style="background: #32e0c4;">Enviar Mensaje</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    
+  $(document).ready(function(){
+
+  	$(document).on('click','a[type="button"]',function(){
+  		$.ajax({
+  			type:'GET',
+  			url:'/addcart/',
+  			data:{'id':this.id},
+  			success:function(data){
+  				$("#valorCarrito").text(data);
+  			}
+
+  		});
+  	});
+
+    function dato(a,b){
+      if(a != null || b != null){
+        $.ajax({
+          url:'/',
+          data:{"a":a,'b':b},
+          success:function(data){
+            $("#email").val("");
+            $("#telefono").val("");
+            $.notify(data,
+              {globalPosition:"top center"}
+            );
+          }
+        });
+      }
+    }
+    $("#enlaceFormulario").click(function(e){
+      let validaTlf = new RegExp("[0-9]{3}-[0-9]{3}-[0-9]{4}");
+      var myArray = validaTlf.exec($("#telefono").val());
+
+      if($("#email").val() != "" && $("#telefono").val() != "")
+      {
+        if(myArray != null){
+          dato($("#email").val(),$("#telefono").val());
+        }
+        else{
+          $.notify('Telefono Incorrecto',
+              {globalPosition:"top center"}
+            );
+        }
+      }
+      else if($("#email").val() != "" && $("#telefono").val() == "")
+      {
+        dato($("#email").val(),null);
+      }
+      else if($("#email").val() == "" && $("#telefono").val() != "")
+      {
+        if(myArray != null){
+          dato(null,$("#telefono").val());
+        }
+        else{
+          $.notify('Telefono Incorrecto',
+              {globalPosition:"top center"}
+            );
+        }
+      }
+
+    });
+  });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+!-- Comment Area Start -->
+                            <div class="comment_area clearfix mb-50">
+
+                                <!-- Section Title -->
+                                <div class="section-heading style-2">
+                                    <h4>Comentarios</h4>
+                                    <div class="line"></div>
+                                </div>
+
+                                <ul>
+                                    {% if comentario %}
+                                       {% for i in comentario %}
+                                            <li class="single_comment_area">
+                                                <div class="comment-content d-flex">
+                                                    <div class="comment-author">
+                                                        {% if i.usuario.imgPerfil.url %}
+                                                            <img src="{{i.usuario.imgPerfil.url}}" alt="author">
+                                                        {% else %}
+                                                            <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt="author">
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                    <div class="comment-meta">
+                                                        <a href="#" class="comment-date">{{i.fecha}}</a>
+                                                        <h6>{{i.usuario.nombre}}</h6>
+                                                        <p>{{i.comentario}}</p>
+                                                        <div class="d-flex align-items-center">
+                                                            <a href="#" class="like">like</a>
+                                                            <a href="#" class="reply">Reply</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+
+                                    {% else %}
+                                        <li>
+                                            <h2 class="text-center">No hay comentarios</h2>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                             <nav class="mt-50">
+                                  {% if productos.has_other_pages %}
+                                    <ul class="pagination justify-content-center">
+                                      {% if productos.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ productos.previous_page_number }}" tabindex="-1" style="font-size: 20px;"><i class="fa fa-angle-left"></i></a>
+                                        </li>
+                                        {% for i in lista %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ i }}" tabindex="-1" style="font-size: 20px;">{{i}}</a>
+                                            </li>
+                                        {% endfor %}
+                                      {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link" tabindex="-1" style="font-size: 20px;"><i class="fa fa-angle-left"></i></a>
+                                        </li>
+                                        {% for i in lista %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ i }}" tabindex="-1" style="font-size: 20px;">{{i}}</a>
+                                            </li>
+                                        {% endfor %} 
+                                      {% endif%}
+                                    
+                                      {% if productos.has_next %}
+                                                                    <li class="page-item">
+                                          <a class="page-link" href="?page={{ productos.next_page_number }}" style="font-size: 20px;"><i class="fa fa-angle-right"></i></a>
+                                        </li>
+                                      {% else %}
+                                          
+                                        <li class="page-item disabled">
+                                          <a class="page-link" href="#" style="font-size: 20px;"><i class="fa fa-angle-right"></i></a>
+                                        </li>
+                                      {% endif %}
+                                    </ul>
+                                  {% endif %}
+                            </nav>

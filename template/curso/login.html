@@ -1,0 +1,58 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Acceso</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vizew-login-area section-padding-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <div class="login-content">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h4>¡Qué bueno tenerte de vuelta!</h4>
+                            <div class="line"></div>
+                        </div>
+
+                        <form  method="post">{% csrf_token %}
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" id="exampleInputEmail1" required placeholder="Email or User Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="pass" id="exampleInputPassword1" required minlength="8" maxlength="16" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                    <label class="custom-control-label" for="customControlAutosizing">Recuérdame</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn vizew-btn w-100 mt-30">Acceso</button>
+                        </form>
+                        <br>
+                        <div class="row justify-content-center">
+                            <a href="{% url 'recuperaPass' %}" style="color:white;">Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Login Area End ##### -->
+
+{% endblock %}

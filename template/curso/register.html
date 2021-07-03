@@ -1,0 +1,165 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <!-- ##### Header Area End ##### -->
+    <style>
+        input:focus {
+            color: red;
+        }
+    </style>
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Acceso</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vizew-login-area section-padding-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <div class="login-content">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h4>¡Qué bueno tenerte de vuelta!</h4>
+                            <div class="line"></div>
+                        </div>
+
+                        <form method="post" id="formulario">{% csrf_token %}
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" required placeholder="Tú Email">
+                                </div>
+                                <div class="form-group col-6">
+                                    <input type="tel" name="tel" class="form-control" id="exampleInputPassword1" required minlength="7" maxlength="10" placeholder="Tú Teléfono">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <input type="password" name="pass" class="form-control" id="pass1" required minlength="8" maxlength="16" placeholder="Tú Clave">
+                                </div>
+                                <div class="form-group col-6">
+                                    <input type="password" class="form-control" id="pass2" required minlength="8" maxlength="16" placeholder="Confirma Clave">
+                                </div>
+                            </div>
+                            <div id="alerta" style="display: none;">
+                                <div class="row justify-content-center">
+                                    <div class="alert alert-danger text-center" role="alert">
+                                      Las claves no coinciden!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4 col-4">
+                                    <select id="cars" class="form-control" name="dia">
+                                        <option style="color: white;">Día</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4 col-4">
+                                    <select id="meses" class="form-control" name="mes">
+                                        <option style="color: white;">Mes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4 col-4">
+                                    <select id="anios" class="form-control" name="anio">
+                                        <option style="color: white;">Años</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="envio" type="submit" class="btn vizew-btn w-100 mt-30">Registrarme</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Login Area End ##### -->
+
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function(){
+
+            if('{{errror}}' == 'True'){
+                $.notify('Ya este email esta registrado',{globalPosition:'top center'});
+            }
+
+            function dias(){
+                for(var i = 1; i < 32; i++){
+                    $("#cars").append(
+                        `
+                            <option style="color:white;">`+i+`</option>`
+                        );
+                }
+            }
+
+            function meses(){
+                var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                for(var i= 0; i < meses.length;i++){
+                     $("#meses").append(
+                        `
+                            <option style="color:white;">`+meses[i]+`</option>`
+                        );
+                }
+            }
+
+            function anios(){
+                var fecha = new Date();
+                var anio = fecha. getFullYear();
+                for(var i = 1950; i < anio; i++){
+                    $("#anios").append(
+                        `
+                            <option style="color:white;">`+i+`</option>`
+                        );
+                }
+            }
+            function validaClave(){
+                $("input[id='pass2']").on('keyup',function(){
+                    if($("#pass2").val() != $("#pass1").val()){
+                        $("#alerta").css('display','block');
+                        return 0
+                    }
+                    else{
+                        $("#alerta").css('display','none');
+                        return 1
+                    }
+                });
+            }
+            dias();
+            meses();
+            anios();
+            validaClave();
+            
+
+            function valor(data){
+                var dato = $("#"+data).val();
+                return dato
+            }
+
+            $("#envio").click(function(e){
+                if(valor('cars') == "Día" || valor("meses") == "Mes" || valor("anios") == Años){
+                    e.preventDefault();
+                    $.notify('Debe elejir Dia, Mes y Año',
+                      {globalPosition:"top center"}
+                    );
+                }
+                else{
+                    $("#formulario").validate();
+                    $("#formulario").submit();
+                }
+            });
+
+
+
+        });
+    </script>
+{% endblock %}

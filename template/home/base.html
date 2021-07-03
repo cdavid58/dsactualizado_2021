@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DR. Santiago Duque</title>
+  <meta content="En este sitio web podras aprender a profundidad como son los sintomas de algunos trastorno mentales" name="description">
+  <meta content="psiquiatria, psicologos, ayuda, trastorno" name="keywords">
+  <meta content="Carlos Del Aguila - https://evansoft.com.co" name="Author">
+  <meta name="copyright" content="Evansoft - https://evansoft.com.co"/>
+  <meta name="language" content="es"/>
+  <meta name="revisit-after" content="1 month"/>
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Favicons -->
+  <link href="http://localhost:8000/static/curso/img/core-img/logo_dr.gif" rel="icon">
+  <link href="{% static 'curso/img/core-img/logo_dr.gif' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'home/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/af551748ac.js" crossorigin="anonymous"></script>
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'home/assets/css/style.css' %}" rel="stylesheet">
+
+  <script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
+</head>
+
+<body>
+
+
+  <!-- ======= Top Bar ======= -->
+  <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top ">
+    <div class="container d-flex">
+      <div class="contact-info mr-auto">
+        <i class="icofont-envelope" style="color:#32e0c4;"></i> <a href="mailto:secretariasantiagoduque@gmail.com">secretariasantiagoduque@gmail.com</a>
+        <i class="icofont-phone" style="color:#32e0c4;"></i> +57(4)418-4478&nbsp;&nbsp;&nbsp;+57 3023497154
+      </div>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+        <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+        <a href="#" class="skype"><i class="icofont-skype"></i></a>
+        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="{% url 'home' %}"><img src="{% static 'curso/img/core-img/logo_dr.gif' %}" alt=""></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="#about">Acerca de</a></li>
+          <li><a href="#services">Servicios</a></li>
+          <li class="drop-down"><a href="javascript:void();">Cursos</a>
+            <ul>
+              {% for i in categoria %}
+                <li class="drop-down">
+                  <a href="#">{{i.nombre}}</a>
+                  <ul>
+                    {% for x in subcategoria %}
+                      {% if x.categoria.nombre == i.nombre %}
+                        <li><a href="{% url 'cursos' 0 i.pk %}">{{x.nombre}}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li><a href="#contact">Contacto</a></li>
+          {% if request.session.login %}
+            <li><a href="{% url 'cuenta' %}">Mi cuenta</a></li>
+            <li><a href="{% url 'salir' %}">Salir</a></li>
+          {% else %}
+            <li><a href="{% url 'registroCurso' %}">Registrarse</a></li>
+            <li><a href="{% url 'loginHome' %}">Ingresar</a></li>
+          {% endif %}
+          <li><a href="{% url 'detailscart' %}"><i class="fas fa-shopping-cart fa-2x"></i><span id="valorCarrito" class="badge badge-pill badge-primary" style="position: absolute;right: -3px;background: #32e0c4;color:black;top: -10px;max-width: unset;">{{request.session.carrito}}</span></a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <video id="video" class="col" controls width=1000 preload autoplay muted loop> 
+        <source src="https://www.youtube.com/embed/cmtk-TRUoO4" type="video/mp4"> 
+        <!-- FALLBACK HERE -->
+    </video>
+  </section><!-- End Hero -->
+  <main id="main">
+
+    {% block content %}{% endblock %}
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-info">
+              <h3 style="color: white;">Dr. Santiago Duque</h3>
+              <p style="color: white;">
+                Torre Médica Parque Comercial El Tesoro. <br>Consultorio 2029. Cra. 25A #1 SUR - 45<br>Colombia, Medellín<br><br>
+                <strong>Teléfono:</strong> <br>+57(4)418-4478<br>+57 3023497154<br><br>
+                <strong>Email:</strong> secretariasantiagoduque@gmail.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div> -->
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <!-- <h4>Nuestros Cursos</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right" style="color:#32e0c4;"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right" style="color:#32e0c4;"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right" style="color:#32e0c4;"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right" style="color:#32e0c4;"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right" style="color:#32e0c4;"></i> <a href="#">Graphic Design</a></li>
+            </ul> -->
+          </div>
+
+          <div class="col-lg-4 col-md-6 ml-auto footer-newsletter">
+            <h4>Unete a nuestro boletini</h4>
+            <p>Para estar pendiente de nuestros nuevos cursos.</p>
+            <form action="" method="post">{% csrf_token %}
+              <input type="email" name="email" placeholder="Ingresa tu email"><input type="submit" style="background: #32e0c4;" value="Subscribe">
+            
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Dr. Santiago Duque</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Desarrollado por <a href="https://evansoft.com.co">Evansoft</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up" style="background:#32e0c4;"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'home/assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/aos/aos.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'home/assets/js/main.js' %}"></script>
+  <script src="{% static 'notify.min.js' %}"></script>
+  {% block script %}{% endblock %}
+
+</body>
+
+</html>

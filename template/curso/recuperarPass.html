@@ -1,0 +1,62 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Recuperación de Clave</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="vizew-login-area section-padding-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <div class="login-content">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h4>¡Te ayudamos a recuperar tu contraseña!</h4>
+                            <div class="line"></div>
+                        </div>
+
+                        <form  method="post">{% csrf_token %}
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" required placeholder="Ingresa tu correo electronico">
+                            </div>
+                            <button type="submit" class="btn vizew-btn w-100 mt-30">Recuperar</button>
+                        </form><br>
+                        <div class="row justify-content-center">
+                            <a href="{% url 'loginHome' %}" style="color:white;">Ya tienes una cuenta?</a>
+                        </div><br>
+                        <div class="row justify-content-center">
+                            <a href="{% url 'registroCurso' %}" style="color:white;">Quieres tener una cuenta?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Login Area End ##### -->
+
+{% endblock %}
+{% block script %}
+	
+	<script>
+		$(document).ready(function(){
+			if('{{error}}' == 'True'){
+				$.notify('Lo sentimos pero el email que ingreso es\n errado, por favor vuelva a intentarlo!',{globalposition:'top center'});
+			}
+		});
+	</script>
+
+{% endblock %}
